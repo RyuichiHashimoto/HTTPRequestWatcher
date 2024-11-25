@@ -8,9 +8,10 @@ WORKDIR /app
 COPY requirements.txt requirements.txt
 COPY app.py app.py
 COPY db.py db.py
+COPY http_request_watcher.sh entrypoint.sh
 
 # 依存関係をインストール
 RUN pip install --no-cache-dir -r requirements.txt
 
 # アプリケーションを起動
-CMD ["python", "app.py"]
+ENTRYPOINT ["/entrypoint.sh"]

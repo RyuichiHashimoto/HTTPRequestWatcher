@@ -6,6 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "5010:5000"
+      - "5000:5000"
     environment:
       - FLASK_ENV=development
+      - DISCORD_WEBHOOK_URL=${DISCORD_WEBHOOK_URL}
