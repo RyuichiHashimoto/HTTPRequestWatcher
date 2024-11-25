@@ -5,10 +5,10 @@ FROM python:3.10-slim
 WORKDIR /app
 
 # 必要なファイルをコンテナにコピー
-COPY requirements.txt requirements.txt
-COPY app.py app.py
-COPY db.py db.py
-COPY entry-point.sh entry-point.sh
+COPY ../src/requirements.txt requirements.txt
+COPY ../src/app.py app.py
+COPY ../src/db.py db.py
+COPY ./entry-point.sh entry-point.sh
 
 # 依存関係をインストール
 RUN apt-get update && apt-get install jq curl -y
