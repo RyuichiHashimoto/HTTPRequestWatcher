@@ -12,6 +12,7 @@ COPY entry-point.sh entry-point.sh
 
 # 依存関係をインストール
 RUN pip install --no-cache-dir -r requirements.txt
+RUN chmod +x ./entrypoint.sh
 
 # アプリケーションを起動
 ENTRYPOINT ["./entry-point.sh"]
