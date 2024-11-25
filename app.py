@@ -11,8 +11,8 @@ def get_db_path(session_id: str)  -> str:
     return f"./db/{session_id}.sqlite3"
     
 
-@app.route('/show/<session_id>', methods=['GET', 'POST'])
-def show_headers(session_id: str):
+@app.route('/view/<session_id>', methods=['GET', 'POST'])
+def view_headers(session_id: str):
     # リクエストヘッダー情報を取得
     try:
         db_path = get_db_path(session_id)    
