@@ -11,8 +11,9 @@ COPY db.py db.py
 COPY entry-point.sh entry-point.sh
 
 # 依存関係をインストール
+RUN apt-get update && apt-get install jq curl -y
 RUN pip install --no-cache-dir -r requirements.txt
-RUN chmod +x ./entrypoint.sh
+RUN chmod +x ./entry-point.sh
 
 # アプリケーションを起動
 ENTRYPOINT ["./entry-point.sh"]
