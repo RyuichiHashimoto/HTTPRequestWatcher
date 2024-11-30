@@ -51,7 +51,7 @@ Note:
 
 ### How to View HTTP Metadata
 Access the URL:
-```http://{ip-iddr}/view/{session-id}```にアクセスする。
+```http://{ip-iddr}/view/{session-id}```
 
 Upon accessing the URL, you will obtain HTTP metadata (e.x. the following image).
 
