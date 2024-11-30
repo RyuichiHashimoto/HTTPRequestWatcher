@@ -22,7 +22,7 @@ def initialize_db(db_name: str) -> bool:
         conn = sqlite3.connect(db_name)
         cursor = conn.cursor()
 
-        # テーブル作成クエリ
+        # query to create table
         create_table_query = """
         CREATE TABLE IF NOT EXISTS history (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -40,7 +40,7 @@ def initialize_db(db_name: str) -> bool:
     except sqlite3.Error as e:
         print(f"An error occurred while initializing the database: {e}")
     finally:
-        # 接続を閉じる
+        # close connection
         if conn:
             conn.close()
     time.sleep(0.5)
@@ -58,7 +58,7 @@ def insert_record(db_name: str, sender_ip_address: str="", url: str="", headers:
         conn = sqlite3.connect(db_name)
         cursor = conn.cursor()
 
-        # テーブル作成クエリ
+        # query to create table
         create_table_query = f"""
         INSERT INTO history (sender_ip_address, url, headers, body, method, timestamp)
         VALUES
@@ -78,31 +78,33 @@ def insert_record(db_name: str, sender_ip_address: str="", url: str="", headers:
 
 def get_history_as_list_of_dicts(db_path):
     """
-    SQLite3データベースから`history`テーブルのデータをlist[dict]形式で取得する関数。
+    A function to retrieve data from the `history` table in an SQLite3 database in a list[dict] format.
 
-    Args:
-        db_path (str): SQLite3ファイルのパス
-
-    Returns:
-        list[dict]: `history`テーブルのデータ
+    Paramters
+    ----------
+        db_path: str
+            SQLite3 file path to be read
+        
+    Returns
+    -------
+        list[dict]: `history` table record
     """
     try:
-        # データベースに接続
+        # connect to sqlite3 database
         conn = sqlite3.connect(db_path)
         cursor = conn.cursor()
 
-        # データを取得
+        # get access history data
         cursor.execute("SELECT * FROM history")
-        columns = [description[0] for description in cursor.description]  # カラム名の取得
+        columns = [description[0] for description in cursor.description]  # obtain column name list
         rows = cursor.fetchall()
 
-        # list[dict] に変換
+        # convert db records data into list[dict]
         result = [dict(zip(columns, row)) for row in rows]
 
         return result
 
     except sqlite3.Error as e:
-        print(f"SQLiteエラーが発生しました: {e}")
         return []
 
     finally:

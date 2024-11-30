@@ -13,7 +13,6 @@ def get_db_path(session_id: str)  -> str:
 
 @app.route('/view/<session_id>', methods=['GET', 'POST'])
 def view_headers(session_id: str):
-    # リクエストヘッダー情報を取得
     try:
         db_path = get_db_path(session_id)    
         
@@ -56,12 +55,12 @@ def recieve_request(session_id: str):
             initialize_db(db_path)
 
         
-        sender_ip_address = request.remote_addr  # クライアントのIPアドレス
-        url = request.url  # フルURL
-        headers = json.dumps(dict(request.headers))  # ヘッダー情報
-        body = request.get_data(as_text=True)  # ボディデータ（文字列として取得）
-        method = request.method  # HTTPメソッド
-        timestamp = datetime.datetime.now().isoformat()  # 現在時刻をISOフォーマットで取得
+        sender_ip_address = request.remote_addr  # Web-Client IP Address
+        url = request.url  # URL the client use
+        headers = json.dumps(dict(request.headers))  # HTTP Header data
+        body = request.get_data(as_text=True)  # HTTP Body data (string type）
+        method = request.method  # HTTP Method
+        timestamp = datetime.datetime.now().isoformat()  # Access Time (ISO Format)
         
         is_success, msg= insert_record(db_path, sender_ip_address, url, headers, body, method, timestamp)
         if is_success:
