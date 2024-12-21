@@ -42,9 +42,7 @@ def view_headers(session_id: str):
         return "unexpected error:" + e 
 
 
-@app.route('/register/<session_id>', methods=['GET', 'POST'])
-def recieve_request(session_id: str):
-    
+def _recieve_request(session_id: str):
     if not bool(re.match(r"^[a-zA-Z0-9]+$", session_id)):
         return jsonify(success=False, message="session id  is not valid")
     
@@ -63,16 +61,37 @@ def recieve_request(session_id: str):
         timestamp = datetime.datetime.now().isoformat()  # Access Time (ISO Format)
         
         is_success, msg= insert_record(db_path, sender_ip_address, url, headers, body, method, timestamp)
-        if is_success:
-            return jsonify(success=True, message=msg)
-        else:
-            return jsonify(success=False, message=msg)
+        is_success_msg = "Success" if is_success else "Failure" 
 
+        html = f"""
+            <html>
+            <head><title>Register Result</title></head>
+            <body>
+                <h2>{is_success_msg}</h2>
+                <p>{msg}</p>
+                <form action="/view/{session_id}" method="get">
+                    <button type="submit">View History</button>
+                </form>
+            </body>
+            </html>
+        """
+        return html
+        
     except Exception as e:
         import traceback
         traceback.print_exc()
         return jsonify(success=False, message="/ is not allowed")
 
+
+
+
+@app.route('/register/<session_id>', methods=['GET', 'POST'])
+def recieve_request(session_id: str):
+    return _recieve_request(session_id)
+    
+@app.route('/', methods=['GET', 'POST'])
+def recieve_request_default():
+    return _recieve_request("default")
 
 
 if __name__ == '__main__':
