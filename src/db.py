@@ -95,7 +95,7 @@ def get_history_as_list_of_dicts(db_path):
         cursor = conn.cursor()
 
         # get access history data
-        cursor.execute("SELECT * FROM history")
+        cursor.execute("SELECT * FROM history ORDER BY id DESC")
         columns = [description[0] for description in cursor.description]  # obtain column name list
         rows = cursor.fetchall()
 
