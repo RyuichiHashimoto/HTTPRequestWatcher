@@ -21,6 +21,7 @@ Support may be added upon request.
 - [How to Use the Site](#how-to-use-the-site)
   - [How to Collect HTTP Metadata](#how-to-collect-http-metadata)
   - [How to View HTTP Metadata](#how-to-view-http-metadata)
+- [HTTP Metadata Retention Policy](#http-metadata-retention-policy)
 - [License](#license)
 
 
@@ -56,6 +57,12 @@ Access the URL:
 Upon accessing the URL, you will obtain HTTP metadata (e.x. the following image).
 
 ![alt text](asset/sampe-image.png)
+
+## HTTP Metadata Retention Policy
+The system is configured to periodically delete logs for security and storage optimization purposes. Specifically, all session logs stored in the /app/db/ directory will be removed automatically at regular intervals.
+
+If you wish to adjust the log retention settings, modify the cron job defined in the Docker container. This feature ensures the site remains lightweight and minimizes potential exposure of sensitive data.
+
 
 
 ## License

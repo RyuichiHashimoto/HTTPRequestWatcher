@@ -1,0 +1,1 @@
+0 5 * * * rm -f /app/db/*.sqlite3 > /dev/null 2>&1

@@ -25,10 +25,12 @@ else
     ip_addr=""
 fi
 
+# cronサービスを起動
+service cron start
+
 # 関数を呼び出し
 send_webhook "$ip_addr" "$url" "start aws instance in ${ip_addr}"
 send_webhook "$ip_addr" "$url" "http://${ip_addr}:5010/register/sessionid"
 send_webhook "$ip_addr" "$url" "http://${ip_addr}:5010/show/sessionid"
 
-#
 python app.py
