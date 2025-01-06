@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from db import get_db_path, initialize_db, insert_record, get_history_as_list_of_dicts
 import re
 import datetime
@@ -93,8 +93,12 @@ def recieve_request(session_id: str):
 def recieve_request_default():
     return _recieve_request("default")
 
+@app.route('/.well-known/acme-challenge/<filename>')
+def well_known(filename):
+    return render_template('.well-known/acme-challenge/'+ filename)
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    print("hogehogeo")
+    app.run(host='0.0.0.0', port=5001)
 
     
